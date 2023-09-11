@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KOLKATA CENTER - Store Requisition Form</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <style>
+        /* Style for the header container */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Style for the "KOLKATA CENTER" heading */
+        .header-container h1 {
+            margin: 0;
+            text-align: right;
+        }
+
+        /* Style for the logo image */
+        .logo {
+            max-width: 100px; /* Adjust the image width as needed */
+        }
+
+        /* Style for the form content */
+        .form-content {
+            margin-top: 20px; /* Add spacing between header and form */
+        }
+    </style>
+    <script>
+        // Function to generate a PDF of the form
+        function generatePDF() {
+            // Create a new jsPDF instance
+            const doc = new jsPDF();
+
+            // Add content from the entire HTML document
+            doc.html(document.body, {
+                callback: function (pdf) {
+                    // Save the PDF and send it via email
+                    const pdfDataUri = pdf.output('datauristring');
+                    sendPDFByEmail(pdfDataUri);
+
+                    // Reset the form
+                    document.getElementById('storeRequisitionForm').reset();
+                }
+            });
+        }
+
+        // Function to send the PDF via email
+        function sendPDFByEmail(pdfDataUri) {
+            // Replace 'your-email@example.com' with the actual email address
+            const email = 'saumya.purkait@crystaivf.com';
+
+            // Create a new email link with the PDF as an attachment
+            const emailLink = document.createElement('a');
+            emailLink.href = `mailto:${email}?subject=Store Requisition Form&body=Please find the attached Store Requisition Form.%0D%0A%0D%0ARegards,%0D%0A[Your Name]`;
+            emailLink.target = '_blank';
+            emailLink.download = 'Store_Requisition_Form.pdf';
+            emailLink.click();
+        }
+    </script>
+    <script>
+        // Function to set the current date and time in the "Requisition Date & Time" field
+        function setCurrentDate() {
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleString(); // Format the date and time as needed
+            document.getElementById('requisition_date').value = formattedDate;
+        }
+    </script>
+</head>
+<body onload="setCurrentDate();"> <!-- Call the function when the page loads -->
+
+    <!-- Header container with the image and heading -->
+    <div class="header-container">
+        <img class="logo" src="data:image/png;base64,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" alt="Kolkata Center Logo"> <!-- Replace with your image URL -->
+        <h1>KOLKATA CENTER</h1>
+    </div>
+
+    <h2>STORE REQUISITION FORM</h2>
+    <!-- Requisition Date & Time field -->
+    <p><strong>Requisition Date & Time:</strong> <input type="text" id="requisition_date" readonly></p>
+
+    <!-- Requester Name dropdown -->
+    <p><strong>Requester Name:</strong> 
+        <select name="requester_name" id="requester_name">
+            <option value="Reception">Reception</option>
+            <option value="Pharmacy">Pharmacy</option>
+            <option value="Sr. Doctor">Sr. Doctor</option>
+            <option value="USG Room">USG Room</option>
+            <option value="Blood Collection Room">Blood Collection Room</option>
+            <option value="Consultant">Consultant</option>
+            <option value="Andrology">Andrology</option>
+            <option value="Embryology">Embryology</option>
+            <option value="Nursing">Nursing</option>
+            <option value="MRD">MRD</option>
+            <option value="Store">Store</option>
+            <option value="Accounts">Accounts</option>
+            <option value="OT">OT</option>
+            <option value="Calling Team">Calling Team</option>
+        </select>
+    </p>
+
+    <!-- Department dropdown -->
+    <p><strong>Department:</strong> 
+        <select name="department" id="department">
+            <option value="Reception">Reception</option>
+            <option value="Pharmacy">Pharmacy</option>
+            <option value="Sr. Doctor">Sr. Doctor</option>
+            <option value="USG Room">USG Room</option>
+            <option value="Blood Collection Room">Blood Collection Room</option>
+            <option value="Consultant">Consultant</option>
+            <option value="Andrology">Andrology</option>
+            <option value="Embryology">Embryology</option>
+            <option value="Nursing">Nursing</option>
+            <option value="MRD">MRD</option>
+            <option value="Store">Store</option>
+            <option value="Accounts">Accounts</option>
+            <option value="OT">OT</option>
+            <option value="Calling Team">Calling Team</option>
+        </select>
+    </p>
+
+    <!-- Table for items -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Item Name</th>
+                <th>Required Qty</th>
+                <th>Issued Qty</th>
+                <th>Received Sign</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><input type="text" name="item_name_1"></td>
+                <td><input type="number" name="required_qty_1"></td>
+                <td><input type="number" name="issued_qty_1"></td>
+                <td><input type="text" name="received_sign_1"></td>
+                <td><input type="text" name="remarks_1"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><input type="text" name="item_name_2"></td>
+                <td><input type="number" name="required_qty_2"></td>
+                <td><input type="number" name="issued_qty_2"></td>
+                <td><input type="text" name="received_sign_2"></td>
+                <td><input type="text" name="remarks_2"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><input type="text" name="item_name_3"></td>
+                <td><input type="number" name="required_qty_3"></td>
+                <td><input type="number" name="issued_qty_3"></td>
+                <td><input type="text" name="received_sign_3"></td>
+                <td><input type="text" name="remarks_3"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><input type="text" name="item_name_4"></td>
+                <td><input type="number" name="required_qty_4"></td>
+                <td><input type="number" name="issued_qty_4"></td>
+                <td><input type="text" name="received_sign_4"></td>
+                <td><input type="text" name="remarks_4"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><input type="text" name="item_name_5"></td>
+                <td><input type="number" name="required_qty_5"></td>
+                <td><input type="number" name="issued_qty_5"></td>
+                <td><input type="text" name="received_sign_5"></td>
+                <td><input type="text" name="remarks_5"></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td><input type="text" name="item_name_6"></td>
+                <td><input type="number" name="required_qty_6"></td>
+                <td><input type="number" name="issued_qty_6"></td>
+                <td><input type="text" name="received_sign_6"></td>
+                <td><input type="text" name="remarks_6"></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td><input type="text" name="item_name_7"></td>
+                <td><input type="number" name="required_qty_7"></td>
+                <td><input type="number" name="issued_qty_7"></td>
+                <td><input type="text" name="received_sign_7"></td>
+                <td><input type="text" name="remarks_7"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Requester Signature:</strong> ___________________</p>
+    <p><strong>Store Signature:</strong> ___________________</p>
+
+    <!-- Add a Submit Button -->
+    <input type="button" value="SEND" onclick="generatePDF();">
+
+    <!-- Form Reset Button -->
+    <input type="reset" value="Clear Containts" id="resetButton">
+
+    <script>
+        // Function to reset the form and set the current date
+        function resetForm() {
+            document.getElementById('storeRequisitionForm').reset();
+            setCurrentDate();
+        }
+
+        // Attach the resetForm() function to the Reset button
+        document.getElementById('resetButton').addEventListener('click', resetForm);
+    </script>
+</body>
+</html>
